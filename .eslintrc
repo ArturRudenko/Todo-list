@@ -1,0 +1,19 @@
+// 20210621122525
+// https://raw.githubusercontent.com/Trellus-Health/TrellusHealthPatient/main/client/.eslintrc?token=AE32Z5QNQVIAP2KLXGL4UVTA3GDXK
+
+{
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "prettier"
+  ],
+  "rules": {
+    "react-hooks/exhaustive-deps": "error",
+    "eqeqeq": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "newline-before-return": "error",
+    "react/self-closing-comp": "error"
+  }
+}
