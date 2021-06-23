@@ -6,5 +6,5 @@ interface ITodoListItemProps {
 
 const TodoListItem: FC<ITodoListItemProps> = ({title}) => <div>{title}</div>;
 
-export {ListItem};
-export type {IListItemProps};
+export {TodoListItem};
+export type {ITodoListItemProps};

@@ -4,15 +4,22 @@ import type {todoItemMockData} from '../todo-item.data';
 import type {ITodoListService} from './service-interface';
 
 class TodoItemService implements ITodoListService {
-  tasks: ReadonlyArray<TodoItemModel>;
+  private _tasks: Array<TodoItemModel> = [];
+
+  get tasks(): Array<TodoItemModel> {
+    return this._tasks;
+  }
+
+  set tasks(value: Array<TodoItemModel>) {
+    this._tasks = value;
+  }
 
   constructor() {
     makeAutoObservable(this);
-    this.tasks = [];
   }
 
   setupTasks(tasks: typeof todoItemMockData): void {
-    this.tasks = tasks;
+    this.tasks.splice(0, this.tasks.length, ...tasks);
   }
 
   addTask(queryObject: TodoItemModel): void {
