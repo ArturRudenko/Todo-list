@@ -1,10 +1,13 @@
 import type {FC} from 'react';
 import styles from './avatar.module.scss';
 
-interface Props {
+interface IAvatarProps {
   src: string | null;
 }
 
-export const Avatar: FC<Props> = ({src}) => (
+const Avatar: FC<IAvatarProps> = ({src}) => (
   <div>{src ? <img src={src} alt="avatar" /> : <div className={styles.placeholder} />}</div>
 );
+
+export {Avatar};
+export type {IAvatarProps};

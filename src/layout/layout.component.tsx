@@ -1,6 +1,5 @@
-import {Header} from '../Header';
-import {TodoList} from '../TodoList';
-import {TodoItem} from '../TodoItem';
+import {Header, ItemsList} from '../components';
+import {ListItem} from '../todo-item/components';
 
 const user = {
   name: 'User',
@@ -9,8 +8,8 @@ const user = {
 export const Layout = () => (
   <div>
     <Header user={user} />
-    <TodoList>
-      <TodoItem
+    <ItemsList>
+      <ListItem
         todo={{
           userId: 1,
           id: 1,
@@ -18,6 +17,6 @@ export const Layout = () => (
           completed: false,
         }}
       />
-    </TodoList>
+    </ItemsList>
   </div>
 );
