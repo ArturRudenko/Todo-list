@@ -1,0 +1,15 @@
+.root {
+  position: sticky;
+  top: 0;
+  padding: 2vh 3vw;
+  box-shadow: 0 0 .5vh 0 #000;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.userName {
+  margin-left: 15px;
+}
