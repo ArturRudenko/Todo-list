@@ -1,3 +1,3 @@
-export {Avatar} from './avatar';
-export {Header} from './header';
-export {ItemsList} from './items-list';
+export * from './avatar';
+export * from './header';
+export * from './items-list';

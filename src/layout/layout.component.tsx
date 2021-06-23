@@ -5,7 +5,7 @@ const user = {
   name: 'User',
 };
 
-export const Layout = () => (
+const Layout = () => (
   <div>
     <Header user={user} />
     <ItemsList>
@@ -20,3 +20,5 @@ export const Layout = () => (
     </ItemsList>
   </div>
 );
+
+export {Layout};
