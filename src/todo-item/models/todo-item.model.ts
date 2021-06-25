@@ -1,5 +1,5 @@
 class TodoItemModel {
-  constructor(public title = '') {}
+  constructor(public id = '', public title = '', public completed = false) {}
 }
 
 export {TodoItemModel};

@@ -1,7 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 import type {TodoItemModel} from '../models/todo-item.model';
-import type {todoItemMockData} from '../todo-item.data';
 import type {ITodoListService} from './service-interface';
+import {v4 as uuidv4} from 'uuid';
 
 class TodoItemService implements ITodoListService {
   private _tasks: Array<TodoItemModel> = [];
@@ -18,24 +18,42 @@ class TodoItemService implements ITodoListService {
     makeAutoObservable(this);
   }
 
-  setupTasks(tasks: typeof todoItemMockData): void {
-    this.tasks.splice(0, this.tasks.length, ...tasks);
-  }
-
-  addTask(queryObject: TodoItemModel): void {
-    console.log(queryObject);
+  addTask(taskText: string): void {
+    this.tasks.push({
+      id: uuidv4(),
+      title: taskText,
+      completed: false,
+    });
   }
 
   deleteTask(taskId: string): void {
-    console.log(taskId);
+    const idx = this.tasks.findIndex((task) => task.id === taskId);
+
+    this.tasks.splice(idx, 1);
   }
 
-  editTask(queryObject: TodoItemModel): void {
-    console.log(queryObject);
+  editTask(task: TodoItemModel): void {
+    const idx = this.tasks.findIndex((item) => item.id === task.id);
+
+    this.tasks.splice(idx, 1, task);
   }
 
   toggleTask(taskId: string): void {
-    console.log(taskId);
+    this.tasks.splice(
+      0,
+      this.tasks.length,
+      ...this.tasks.map((task) => {
+        if (task.id !== taskId) {
+          return task;
+        } else {
+          return {
+            id: task.id,
+            title: task.title,
+            completed: !task.completed,
+          };
+        }
+      }),
+    );
   }
 }
 

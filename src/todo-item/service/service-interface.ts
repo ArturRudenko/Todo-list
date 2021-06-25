@@ -1,18 +1,15 @@
 import type {TodoItemModel} from '../models/todo-item.model';
-import type {todoItemMockData} from '../todo-item.data';
 
 interface ITodoListService {
   readonly tasks: ReadonlyArray<TodoItemModel>;
 
-  setupTasks(tasks: typeof todoItemMockData): void;
-
-  addTask(queryObject: TodoItemModel): void;
+  addTask(taskText: string): void;
 
   toggleTask(taskId: string): void;
 
   deleteTask(taskId: string): void;
 
-  editTask(queryObject: TodoItemModel): void;
+  editTask(task: TodoItemModel): void;
 }
 
 export type {ITodoListService};

@@ -4,11 +4,11 @@ import {todoItemMockData} from './todo-item/todo-item.data';
 
 const service = new TodoItemService();
 
-service.setupTasks(todoItemMockData);
+service.tasks = todoItemMockData;
 
 const App = () => (
   <div>
-    <Layout />
+    <Layout todoListItemService={service} />
   </div>
 );
 
