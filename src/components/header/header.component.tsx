@@ -3,17 +3,15 @@ import {Avatar} from '../avatar';
 import styles from './header.module.scss';
 
 interface IHeaderProps {
-  user: {
-    name: string;
-    avatar?: string;
-  };
+  name: string;
+  avatar?: string;
 }
 
-const Header: FC<IHeaderProps> = ({user}) => (
+const Header: FC<IHeaderProps> = ({name}) => (
   <header className={styles.root}>
     <div className={styles.user}>
       <Avatar src={null} />
-      <p className={styles.userName}>{user.name}</p>
+      <p className={styles.userName}>{name}</p>
     </div>
   </header>
 );
