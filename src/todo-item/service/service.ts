@@ -1,56 +1,51 @@
 import {makeAutoObservable} from 'mobx';
+import {v4 as uuidv4} from 'uuid';
 import type {TodoItemModel} from '../models/todo-item.model';
 import type {ITodoListService} from './service-interface';
-import {v4 as uuidv4} from 'uuid';
+import {TodoItemFactory} from '../models/todo-item.factory';
+
+const todoFactory = new TodoItemFactory();
 
 class TodoItemService implements ITodoListService {
-  private _tasks: Array<TodoItemModel> = [];
+  private _todos: Array<TodoItemModel> = [];
 
-  get tasks(): Array<TodoItemModel> {
-    return this._tasks;
+  get todos(): Array<TodoItemModel> {
+    return this._todos;
   }
 
-  set tasks(value: Array<TodoItemModel>) {
-    this._tasks = value;
+  set todos(value: Array<TodoItemModel>) {
+    this._todos = value;
   }
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  addTask(taskText: string): void {
-    this.tasks.push({
-      id: uuidv4(),
-      title: taskText,
-      completed: false,
-    });
+  async addTodo(todoTitle: string): Promise<any> {
+    this.todos.push(todoFactory.create(uuidv4(), todoTitle, false));
   }
 
-  deleteTask(taskId: string): void {
-    const idx = this.tasks.findIndex((task) => task.id === taskId);
+  async deleteTodo(todoId: string): Promise<any> {
+    const idx = this.todos.findIndex((todo) => todo.id === todoId);
 
-    this.tasks.splice(idx, 1);
+    this.todos.splice(idx, 1);
   }
 
-  editTask(task: TodoItemModel): void {
-    const idx = this.tasks.findIndex((item) => item.id === task.id);
+  async editTodo(todoId: string, todoTitle: string, todoCompleted: boolean): Promise<any> {
+    const idx = this.todos.findIndex((item) => item.id === todoId);
 
-    this.tasks.splice(idx, 1, task);
+    this.todos.splice(idx, 1, todoFactory.create(todoId, todoTitle, todoCompleted));
   }
 
-  toggleTask(taskId: string): void {
-    this.tasks.splice(
+  async toggleTodo(todoId: string): Promise<any> {
+    this.todos.splice(
       0,
-      this.tasks.length,
-      ...this.tasks.map((task) => {
-        if (task.id !== taskId) {
-          return task;
+      this.todos.length,
+      ...this.todos.map((todo) => {
+        if (todo.id !== todoId) {
+          return todo;
         } else {
-          return {
-            id: task.id,
-            title: task.title,
-            completed: !task.completed,
-          };
+          return todoFactory.create(todo.id, todo.title, !todo.completed);
         }
       }),
     );

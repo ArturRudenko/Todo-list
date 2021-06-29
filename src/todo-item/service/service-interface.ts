@@ -1,15 +1,15 @@
 import type {TodoItemModel} from '../models/todo-item.model';
 
 interface ITodoListService {
-  readonly tasks: ReadonlyArray<TodoItemModel>;
+  readonly todos: ReadonlyArray<TodoItemModel>;
 
-  addTask(taskText: string): void;
+  addTodo(todoTitle: string): Promise<any>;
 
-  toggleTask(taskId: string): void;
+  toggleTodo(todoId: string): Promise<any>;
 
-  deleteTask(taskId: string): void;
+  deleteTodo(todoId: string): Promise<any>;
 
-  editTask(task: TodoItemModel): void;
+  editTodo(todoId: string, todoTitle: string, todoCompleted: boolean): Promise<any>;
 }
 
 export type {ITodoListService};
