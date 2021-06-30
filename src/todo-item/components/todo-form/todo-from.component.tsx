@@ -1,21 +1,21 @@
 import type {FC} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 
-interface ITextInputProps {
+interface ITodoFormProps {
   defaultValue?: string;
 
-  onSubmit(text: string): void;
+  onSubmit(dto: ITodoItemCreateFormDto): void;
 }
 
-interface ITodoItemCreateFormDTO {
+interface ITodoItemCreateFormDto {
   text: string;
 }
 
-const TextInput: FC<ITextInputProps> = ({defaultValue, onSubmit}) => {
-  const {handleSubmit, control, reset} = useForm<ITodoItemCreateFormDTO>();
+const TodoForm: FC<ITodoFormProps> = ({defaultValue, onSubmit}) => {
+  const {handleSubmit, control, reset} = useForm<ITodoItemCreateFormDto>();
 
-  const onFormSubmit = (dto: ITodoItemCreateFormDTO): void => {
-    onSubmit(dto.text);
+  const onFormSubmit = (dto: ITodoItemCreateFormDto): void => {
+    onSubmit(dto);
     reset({text: ''});
   };
 
@@ -34,5 +34,5 @@ const TextInput: FC<ITextInputProps> = ({defaultValue, onSubmit}) => {
   );
 };
 
-export {TextInput};
-export type {ITextInputProps};
+export {TodoForm};
+export type {ITodoFormProps, ITodoItemCreateFormDto};

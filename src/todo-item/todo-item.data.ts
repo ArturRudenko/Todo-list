@@ -1,4 +1,4 @@
-import type {TodoItemModel} from './models/todo-item.model';
+import type {TodoItemModel} from './models';
 import {v4 as uuidv4} from 'uuid';
 
 const todoItemMockData: Array<TodoItemModel> = [

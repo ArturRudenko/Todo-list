@@ -2,23 +2,20 @@ import type {FC} from 'react';
 import {observer} from 'mobx-react';
 import {Layout} from '../../layout';
 import {ItemsList} from '../../components';
-import {TodoListItem} from '../../todo-item/components';
-import type {ITodoListService} from '../../todo-item/service/service-interface';
-import {TextInput} from '../../components/text-input';
+import type {ITodoItemCreateFormDto, ITodoItemService} from '../../todo-item';
+import {TodoForm, TodoListItem} from '../../todo-item';
 
 interface IDashboardProps {
-  todoListItemService: ITodoListService;
+  todoListItemService: ITodoItemService;
 }
 
 const Dashboard: FC<IDashboardProps> = observer(({todoListItemService}) => {
-  const onTodoAdd = async (todoTitle: string): Promise<any> =>
-    todoListItemService.addTodo(todoTitle);
+  const onTodoAdd = (dto: ITodoItemCreateFormDto) => todoListItemService.addTodo(dto);
 
   const todos = todoListItemService.todos.map(({id, title, completed}) => {
-    const onTodoRemove = async (): Promise<any> => todoListItemService.deleteTodo(id);
-    const onTodoToggle = async (): Promise<any> => todoListItemService.toggleTodo(id);
-    const onTodoUpdate = async (newTitle: string): Promise<any> =>
-      todoListItemService.editTodo(id, newTitle, completed);
+    const onTodoRemove = () => todoListItemService.deleteTodo(id);
+    const onTodoToggle = () => todoListItemService.toggleTodo(id);
+    const onTodoUpdate = (dto: ITodoItemCreateFormDto) => todoListItemService.editTodo(id, dto);
 
     return (
       <TodoListItem
@@ -34,7 +31,7 @@ const Dashboard: FC<IDashboardProps> = observer(({todoListItemService}) => {
 
   return (
     <Layout>
-      <TextInput onSubmit={onTodoAdd} />
+      <TodoForm onSubmit={onTodoAdd} />
       <ItemsList>{todos}</ItemsList>
     </Layout>
   );
