@@ -58,7 +58,7 @@ class TodoItemService implements ITodoItemService {
   async init(todos: TodoItemModel[]): Promise<void> {
     this._todos = todos;
 
-    await Promise.all(this._todos.map(this._repo.save)).catch(console.error);
+    await Promise.all(this._todos.map((item) => this._repo.save(item))).catch(console.error);
   }
 }
 
