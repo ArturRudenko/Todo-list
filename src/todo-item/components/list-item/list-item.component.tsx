@@ -1,6 +1,7 @@
 import type {FC} from 'react';
 import {useState} from 'react';
-import {TextInput} from '../../../components/text-input';
+import type {ITodoItemCreateFormDto} from '../todo-form';
+import {TodoForm} from '../todo-form';
 
 interface ITodoListItemProps {
   title: string;
@@ -10,14 +11,14 @@ interface ITodoListItemProps {
 
   onRemove(): void;
 
-  onUpdate(newTitle: string): void;
+  onUpdate(dto: ITodoItemCreateFormDto): void;
 }
 
 const TodoListItem: FC<ITodoListItemProps> = ({title, completed, onToggle, onRemove, onUpdate}) => {
   const [isEditing, setEditing] = useState(false);
 
-  const onTodoUpdate = (newTitle: string): void => {
-    onUpdate(newTitle);
+  const onTodoUpdate = (dto: ITodoItemCreateFormDto): void => {
+    onUpdate(dto);
     setEditing(false);
   };
 
@@ -25,7 +26,7 @@ const TodoListItem: FC<ITodoListItemProps> = ({title, completed, onToggle, onRem
     <div>
       <input type="checkbox" checked={completed} onChange={onToggle} />
       {isEditing ? (
-        <TextInput onSubmit={onTodoUpdate} defaultValue={title} />
+        <TodoForm onSubmit={onTodoUpdate} defaultValue={title} />
       ) : (
         <p onClick={() => setEditing(true)}>{title}</p>
       )}
