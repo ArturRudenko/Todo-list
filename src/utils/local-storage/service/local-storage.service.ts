@@ -1,16 +1,12 @@
 import type {ILocalStorageService} from './local-storage.service.interface';
 
 class LocalStorageService implements ILocalStorageService {
-  clear(): void {
-    localStorage.clear();
-  }
-
-  delete(key: string): void {
-    localStorage.removeItem(key);
-  }
-
   get(key: string): string | null {
     return localStorage.getItem(key);
+  }
+
+  set(key: string, value: string): void {
+    localStorage.setItem(key, value);
   }
 
   getObject<T>(key: string): T | null {
@@ -19,14 +15,18 @@ class LocalStorageService implements ILocalStorageService {
     return !str ? str : JSON.parse(str);
   }
 
-  set(key: string, value: string): void {
-    localStorage.setItem(key, value);
-  }
-
   setObject<T>(key: string, value: T): void {
     const str = JSON.stringify(value);
 
     this.set(key, str);
+  }
+
+  delete(key: string): void {
+    localStorage.removeItem(key);
+  }
+
+  clear(): void {
+    localStorage.clear();
   }
 }
 
