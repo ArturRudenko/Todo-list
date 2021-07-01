@@ -14,7 +14,9 @@ class TodoItemLocalStorageRepository implements ITodoItemRepository {
     const todos = this._localStorage.getObject<TodoItemModel[]>(storageKey);
 
     if (todos) {
-      this._localStorage.setObject<TodoItemModel[]>(storageKey, [todo, ...todos]);
+      this._localStorage.setObject<TodoItemModel[]>(storageKey, [...todos, todo]);
+    } else {
+      this._localStorage.setObject<TodoItemModel[]>(storageKey, [todo]);
     }
   }
 
