@@ -2,10 +2,16 @@ import type {ITodoItemRepository, ITodoItemRepositoryQuery} from './todo-item.re
 import type {TodoItemModel} from '../models';
 import type {ILocalStorageService} from '../../utils/local-storage';
 import type {ITodoItemLocalStorageRepositoryConfig} from './config';
+import {inject, injectable} from 'inversify';
+import {TODO_ITEM_LOCAL_STORAGE_REPOSITORY_CONFIG} from './config';
+import {LOCAL_STORAGE_SERVICE} from '../../utils/local-storage';
 
+@injectable()
 class TodoItemLocalStorageRepository implements ITodoItemRepository {
   constructor(
+    @inject(TODO_ITEM_LOCAL_STORAGE_REPOSITORY_CONFIG)
     private readonly _config: ITodoItemLocalStorageRepositoryConfig,
+    @inject(LOCAL_STORAGE_SERVICE)
     private readonly _localStorage: ILocalStorageService,
   ) {}
 

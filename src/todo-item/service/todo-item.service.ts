@@ -4,7 +4,10 @@ import {TodoItemFactory} from '../models';
 import type {ITodoItemService} from './todo-item.service.interface';
 import type {ITodoItemRepository} from '../repository';
 import type {ITodoItemCreateFormDto} from '../components';
+import {inject, injectable} from 'inversify';
+import {TODO_ITEM_LOCAL_STORAGE_REPOSITORY} from '../repository';
 
+@injectable()
 class TodoItemService implements ITodoItemService {
   private _todos: Array<TodoItemModel> = [];
 
@@ -12,7 +15,9 @@ class TodoItemService implements ITodoItemService {
     return this._todos;
   }
 
-  constructor(private readonly _repo: ITodoItemRepository) {
+  constructor(
+    @inject(TODO_ITEM_LOCAL_STORAGE_REPOSITORY) private readonly _repo: ITodoItemRepository,
+  ) {
     makeAutoObservable(this);
   }
 
