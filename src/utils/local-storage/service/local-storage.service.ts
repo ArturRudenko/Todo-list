@@ -1,5 +1,7 @@
 import type {ILocalStorageService} from './local-storage.service.interface';
+import {injectable} from 'inversify';
 
+@injectable()
 class LocalStorageService implements ILocalStorageService {
   get(key: string): string | null {
     return localStorage.getItem(key);
